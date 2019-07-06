@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\CategoryTreeAdminList;
 use App\Entity\Category;
+use App\Utils\CategoryTreeAdminOptionList;
 
 /**
  * @Route("/admin")
@@ -49,7 +50,7 @@ class AdminController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($category);
         $entityManager->flush();
-        return $this->redirectToRoute('category');
+        return $this->redirectToRoute('categories');
     }
 
     /**
@@ -74,6 +75,14 @@ class AdminController extends AbstractController
     public function users()
     {
         return $this->render('admin/users.html.twig');
+    }
+
+    public function getAllCategories(CategoryTreeAdminOptionList $categories)
+    {
+        $categories->getCategoryList($categories->buildTree());
+        return $this->render('admin/_all_categories.html.twig',[
+            'categories'=>$categories
+        ]);
     }
 }
 
