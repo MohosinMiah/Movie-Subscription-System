@@ -85,10 +85,8 @@ class FrontController extends AbstractController
         return $this->render('front/_main_categories.html.twig',[
             'categories'=>$categories
         ]);
-   dump($categories);
-   die;
 
-
+        
     }
 }
 
