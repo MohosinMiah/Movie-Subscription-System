@@ -5,14 +5,17 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="config/bootstrap.php"
+         bootstrap="vendor/autoload.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <server name="APP_ENV" value="test" force="true" />
-        <server name="SHELL_VERBOSITY" value="-1" />
-        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-        <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
+        <env name="KERNEL_CLASS" value="App\Kernel" />
+        <env name="APP_ENV" value="test" />
+        <env name="APP_DEBUG" value="1" />
+        <env name="APP_SECRET" value="s$cretf0rt3st" />
+        <env name="SHELL_VERBOSITY" value="-1" />
+        <!-- define your env variables for the test env here -->
+        <env name="DATABASE_URL" value="mysql://root:@127.0.0.1:3306/movie_subscription" />
     </php>
 
     <testsuites>
@@ -31,3 +34,4 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 </phpunit>
+
