@@ -19,6 +19,7 @@ class SluggerTest extends TestCase
     public function getSlugs()
     {
         yield  ['Lorem Ipsum', 'lorem-ipsum'];
+        yield  ['mohosin Ipsum', 'mohosin-ipsum'];
         yield [' Lorem Ipsum', 'lorem-ipsum'];
         yield [' lOrEm  iPsUm  ', 'lorem-ipsum'];
         yield ['!Lorem Ipsum!', 'lorem-ipsum'];
