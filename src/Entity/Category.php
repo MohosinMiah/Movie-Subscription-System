@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
- * @ORM\Table(name="category")
+ * @ORM\Table(name="categories")
  * @UniqueEntity("name")
  */
 class Category

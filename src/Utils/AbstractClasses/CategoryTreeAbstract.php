@@ -46,7 +46,7 @@ abstract class CategoryTreeAbstract {
         else
         {
             $conn = $this->entitymanager->getConnection();
-            $sql = "SELECT * FROM category";
+            $sql = "SELECT * FROM categories";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             return self::$dbconnection = $stmt->fetchAll();
