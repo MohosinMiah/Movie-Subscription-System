@@ -38,10 +38,6 @@
     </section>
 
     {{ include('front/includes/_videos.html.twig', {'videos' : videos}) }}
-    {# {{ knp_pagination_render(videos) }} #}
-    {# display navigation #}
-<div class="navigation">
     {{ knp_pagination_render(videos) }}
-</div>
 </main>
 {% endblock %}

@@ -14,7 +14,7 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract {
     public $html_6 = '</li>';
     public $html_7 = '</ul>';
 
-    public function getCategoryListAndParent(int $id)
+    public function getCategoryListAndParent(int $id): string
     {
         $this->slugger = new AppExtension; // Twig extension to slugify url's for categories
         $parentData = $this->getMainParent($id); // main parent of subcategory
@@ -23,7 +23,6 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract {
         $key = array_search($id, array_column($this->categoriesArrayFromDb,'id'));
         $this->currentCategoryName = $this->categoriesArrayFromDb[$key]['name']; // for accesing in view
         $categories_array = $this->buildTree($parentData['id']); // builds array for generating nested html list
-        dump($this->getCategoryList($categories_array));
         return $this->getCategoryList($categories_array);
     }
 
@@ -35,7 +34,7 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract {
             $catName = $this->slugger->slugify($value['name']);
             
             $url = $this->urlgenerator->generate('video_list', ['categoryname'=>$catName, 'id'=>$value['id']]);
-            $this->categorylist .= $this->html_2 . $this->html_3 . $url . $this->html_4 . $catName . $this->html_5;
+            $this->categorylist .= $this->html_2 . $this->html_3 . $url . $this->html_4 . $value['name'] . $this->html_5;
             if(!empty($value['children']))
             {
                 $this->getCategoryList($value['children']);
@@ -61,6 +60,22 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract {
                 'name'=>$this->categoriesArrayFromDb[$key]['name']
                 ];
         }
+    }
+
+
+    public function getChildIds(int $parent): array
+    {
+        static $ids = [];
+        foreach($this->categoriesArrayFromDb as $val)
+        {
+            if($val['parent_id'] == $parent)
+            {
+               $ids[] = $val['id'].',';
+               $this->getChildIds($val['id']);
+            }
+        }
+        
+        return $ids;
     }
  
 }
